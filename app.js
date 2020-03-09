@@ -1,8 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const { exec } = require('child_process');
-
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,7 +21,7 @@ app.post("/download", (req, res)=>{
         res.send(error);
     } )
     
-})
+});
 
 app.listen(3000, ()=>
 {
@@ -35,4 +33,4 @@ youtubeDownload=(url, next) =>{
     exec(cmd, (error, stdout, stderr) =>{
         next({result: Number(!!error), data: error ? stderr : stdout});
     })
-}
+};
