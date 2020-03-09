@@ -1,11 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { exec } = require('child_process');
+const serveIndex = require('serve-index');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
-app.use('/download', express.static(__dirname + "download"));
+app.use('download', express.static('download'), serveIndex('download', {'icons':true}));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
