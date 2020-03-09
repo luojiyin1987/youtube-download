@@ -1,30 +1,43 @@
 <!DOCTYPE html>
 <html lang="english">
-<head>
+  <head>
     <title>YouTube Downloader</title>
-</head>
-<link rel="stylesheet" href="style.css">
+  </head>
+  <link rel="stylesheet" href="style.css" />
 
-<script crossorigin="anonymous" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" src="https://lib.baomitu.com/jquery/1.12.4/jquery.min.js"></script>
+  <script
+    crossorigin="anonymous"
+    integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+    src="https://lib.baomitu.com/jquery/1.12.4/jquery.min.js"
+  ></script>
 
-<body>
+  <body>
     <h1 class="heading">My Own Youtube Downloader!</h1>
-    <input class="URL-input" placeholder="Video URL">
+    <input class="URL-input" placeholder="Video URL" />
     <button class="download-button">download</button>
-</body>
+  </body>
 </html>
-<script> 
-  const downloadBtn = document.querySelector('.download-button');
-const URLinput = document.querySelector('.URL-input');
+<script>
+  const downloadBtn = document.querySelector(".download-button");
+  const URLinput = document.querySelector(".URL-input");
 
-downloadBtn.addEventListener('click', ()=>
-{
-   console.log(`URL: ${URLinput.value}`);
-   sendURL(URLinput.value);
-});
+  downloadBtn.addEventListener("click", () => {
+    console.log(`URL: ${URLinput.value}`);
+    sendURL(URLinput.value);
+  });
 
-function sendURL(URL) {
-
-
-}
+  function sendURL(URL) {
+    $.ajax({
+      type: "POST",
+      //the url where you want to sent the userName and password to
+      url: "download",
+      dataType: "application/json",
+      async: true,
+      //json object to sent to the authentication url
+      data: {URL:URL},
+      success: function() {
+        alert("Thanks!");
+      }
+    });
+  }
 </script>
