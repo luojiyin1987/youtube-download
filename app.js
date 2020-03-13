@@ -12,7 +12,7 @@ app.use('/download', express.static('download'), serveIndex('download', {'icons'
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post("/download", (req, res)=>{
+app.post("/down", (req, res)=>{
     console.log("download", req.body);
 
     if(!req.body.URL)
