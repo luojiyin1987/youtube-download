@@ -2,11 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { exec } = require('child_process');
+const serveIndex = require('serve-index');
 
 
 const app = express();
 
 app.use(express.static('public'));
+app.use('download', express.static('download'), serveIndex('download', {'icons':true}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
