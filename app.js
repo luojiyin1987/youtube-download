@@ -2,13 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { exec } = require('child_process');
-const 
 
 
 const app = express();
-app.use(bodyParser.json());
-app.use(express.static('public'));
 
+app.use(express.static('public'));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/download", (req, res)=>{
