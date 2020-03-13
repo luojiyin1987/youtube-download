@@ -2,17 +2,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { exec } = require('child_process');
-const serveIndex = require('serve-index');
 
 
 const app = express();
 
 app.use(express.static('public'));
-app.use('/download', express.static('download'), serveIndex('download', {'icons':true}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post("/down", (req, res)=>{
+app.post("/download", (req, res)=>{
     console.log("download", req.body);
 
     if(!req.body.URL)
@@ -24,7 +22,7 @@ app.post("/down", (req, res)=>{
     youtubeDownload(req.body.URL, (error)=> {
         res.send(error);
     } )
-    
+
 })
 
 app.listen(3000, ()=>
