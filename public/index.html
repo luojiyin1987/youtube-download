@@ -47,11 +47,8 @@
       async: true,
       //json object to sent to the authentication url
       data: {URL:URL},
-      success: function(data) {
-        console.log("success", data);
-      },
-      complete:function(data){
-        console.log("complete",data);
+      complete:function(){
+        alert("下载成功");
       }
     });
   }
