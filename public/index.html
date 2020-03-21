@@ -47,8 +47,11 @@
       async: true,
       //json object to sent to the authentication url
       data: {URL:URL},
-      success: function() {
-        alert("Thanks!");
+      success: function(data) {
+        console.log("success", data);
+      },
+      complete:function(data){
+        console.log("complete",data);
       }
     });
   }
