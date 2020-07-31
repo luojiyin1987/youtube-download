@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const { exec } = require('child_process');
 const serveIndex = require('serve-index');
 
+const downloadDict = {};
+
 const app = express();
 
 app.use(express.static('public'));
@@ -19,9 +21,19 @@ app.post("/download", (req, res)=>{
         return;
     }
 
-    youtubeDownload(req.body.URL, (error)=> {
-        res.send(error);
-    } )
+    const url = req.body.URL;
+
+    if(downloadDict[url] === undefined)
+    {
+        downloadDict[url] = true;
+        youtubeDownload(req.body.URL, (error) =>
+        {
+            delete downloadDict[url];
+            res.send(error);
+        })
+    } else {
+        res.send("downloading, please wait");
+    }
 
 })
 
