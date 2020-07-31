@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const { exec } = require('child_process');
 const serveIndex = require('serve-index');
+
+const downloadDict = {};
 
 const app = express();
 
@@ -20,9 +21,19 @@ app.post("/download", (req, res)=>{
         return;
     }
 
-    youtubeDownload(req.body.URL, (error)=> {
-        res.send(error);
-    } )
+    const url = req.body.URL;
+
+    if(downloadDict[url] === undefined)
+    {
+        downloadDict[url] = true;
+        youtubeDownload(req.body.URL, (error) =>
+        {
+            delete downloadDict[url];
+            res.send(error);
+        })
+    } else {
+        res.send("downloading, please wait");
+    }
 
 })
 
@@ -34,6 +45,6 @@ app.listen(3000, ()=>
 youtubeDownload=(url, next) =>{
     const cmd = `youtube-dl  ${url}     --exec "mv {} ./download/{}"`;
     exec(cmd, (error, stdout, stderr) =>{
-        next({result: Number(!!error), data: error ? stderr : stdout});
+        next({result: Number(!!error), data: error ? stderr : 'download Success'});
     })
 }
