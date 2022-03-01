@@ -43,7 +43,7 @@ app.listen(3000, ()=>
 });
 
 youtubeDownload=(url, next) =>{
-    const cmd = `youtube-dl  ${url}     --exec "mv {} ./download/{}"`;
+    const cmd = `cd ./download/ &&  youtube-dl  ${url}`;
     exec(cmd, (error, stdout, stderr) =>{
         next({result: Number(!!error), data: error ? stderr : 'download Success'});
     })
